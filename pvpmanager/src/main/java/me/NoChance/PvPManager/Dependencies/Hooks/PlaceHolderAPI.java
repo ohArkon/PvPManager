@@ -55,8 +55,13 @@ public class PlaceHolderAPI extends PlaceholderExpansion {
 		case "combat_prefix":
 			return p.isInCombat() ? Settings.getNameTagPrefix() : "";
 		case "combat_timeleft":
-			return String.valueOf(p.getTagTimeLeft() / 1000);
-		case "newbie_timeleft":
+			long timeLeftInSeconds = p.getTagTimeLeft() / 1000;
+				if (timeLeftInSeconds == 0) {
+					return "off";
+				} else {
+					return timeLeftInSeconds + "s";
+				}
+			case "newbie_timeleft":
 			return String.valueOf(p.getNewbieTimeLeft() / 1000);
 		case "pvp_command_timeleft":
 			final int timeLeft = CombatUtils.getTimeLeft(p.getToggleTime(), Settings.getToggleCooldown());
